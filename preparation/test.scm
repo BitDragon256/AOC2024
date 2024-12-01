@@ -52,16 +52,14 @@
       '()))))
     (fmh '() t fmh)))
 
-(define (lazy f) ((lambda (x) (x)) f))
-
 (define
   (trav-tree t f exec)
   (if
     (btree? t)
     (exec
-      (trav-tree (btree-left t) f exec)
-      (lazy (f (btree-v t)))
-      (trav-tree (btree-right t) f exec))))
+      (lambda () (trav-tree (btree-left t) f exec))
+      (lambda () (f (btree-v t)))
+      (lambda () (trav-tree (btree-right t) f exec)))))
 
 (set! a (gen-tree 4))
 
@@ -72,7 +70,7 @@
 (newline)
 
 (display "general traversal left:\n")
-(trav-tree a td (lambda (l v r) (begin v l r)))
+(trav-tree a td (lambda (l v r) (begin (v) (l) (r))))
 (newline)
 
 (display "right traverse:\n")
@@ -80,7 +78,7 @@
 (newline)
 
 (display "general traversal right:\n")
-(trav-tree a td (lambda (l v r) (begin v r l)))
+(trav-tree a td (lambda (l v r) (begin (v) (r) (l))))
 (newline)
 
 ; (display (flatmap-tree a))
