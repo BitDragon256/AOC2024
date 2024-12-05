@@ -140,3 +140,8 @@
 (define (index el lst)
   (let [(tail (member el (reverse lst)))]
     (and tail (length (cdr tail)))))
+
+
+(define (all l) (fold-left (lambda (a b) (and a b)) #t l))
+(define (any l) (fold-left (lambda (a b) (or a b)) #f l))
+(define (sum l) (fold-left + 0 l))
