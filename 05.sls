@@ -34,8 +34,6 @@
 (define (zip-between l el)
   (if (empty? (cdr l)) (list (car l)) (append (list (car l)) (list el) (zip-between (cdr l) el))))
 
-(define (strlist->string l) (fold-left string-append "" l))
-
 (define (order line rules)
   (define (order corline accrules)
   (cond

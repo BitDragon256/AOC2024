@@ -145,3 +145,10 @@
 (define (all l) (fold-left (lambda (a b) (and a b)) #t l))
 (define (any l) (fold-left (lambda (a b) (or a b)) #f l))
 (define (sum l) (fold-left + 0 l))
+
+; some extended string functionality
+(define (strlist->string l) (fold-left string-append "" l))
+(define (reverse-string str) (list->string (reverse (string->list str))))
+(define (string-empty? str) (string=? str ""))
+(define (string-car str) (if (string-empty? str) "" (string (car (string->list str)))))
+(define (string-cdr str) (list->string (cdr (string->list str))))
